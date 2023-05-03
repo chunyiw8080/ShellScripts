@@ -36,6 +36,7 @@ function main(){
 	for key in ${services[@]}
 	do
 		if  ! check_status "${key}"; then
+			echo "${key} shut down at $(date +%F - %T)" >> /home/centos/alert.log
 			systemctl start ${key}
 			isSuccess $? ${key}
 		fi
