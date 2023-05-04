@@ -223,7 +223,7 @@ function check_selinux(){
         hint "RED" "SELINUX has been disabled, reboot for this change to take effect"
         hint "GREEN" "DONE"
         read -p "Reboot now? y/n " choice
-            if [ ${choice == 'y'} ]; then
+            if [ ${choice} == 'y' ]; then
                 reboot
             fi
     else
