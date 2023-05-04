@@ -241,4 +241,4 @@ mysql_setup
 install_wordpress
 make_nginx_config
 start_services
-check_selinux()
+check_selinux
