@@ -2,7 +2,7 @@
 
 # *************************************************************************** #
 # * 
-# * @file:deploy_lnmp
+# * @file:deploy_wordpress
 # * @author:CHUNYI WANG 
 # * @date:2023-04-29 18:27 
 # * @version 1.0  
@@ -93,7 +93,7 @@ function create_user(){
                 hint "GREEN" "DONE"
                 break
             else
-                hint "RED" "FATAL: Unable to create user ${name}"
+                hint "RED" "FATAL: unable to create user ${name}"
             fi
         fi
     done
@@ -128,7 +128,6 @@ function mysql_setup(){
                 else
                     hint "GREEN" "DONE"
                     mysql_password="${new_password}"
-					break
                 fi
             fi
         done
@@ -136,7 +135,7 @@ function mysql_setup(){
         hint "GREEN" "DONE"
     fi
 
-    hint "YELLOW" "Create database for wordpress site ..."
+    hint "YELLOW" "Create database for wordpress ..."
     while true
     do
         read -p $'Enter the databases name: \n' db_name
@@ -205,7 +204,7 @@ function start_services(){
     local services=(mariadb php-fpm nginx)
     for service in ${services[@]}
     do
-		systemctl enable "${service}" > /dev/null 2>&1
+        systemctl enable ${service} > /dev/null 2>&1
         if ! service_status "${service}"; then
             systemctl start "${service}"
         else
@@ -214,6 +213,23 @@ function start_services(){
     done
 
     hint "GREEN" "DONE"
+}
+
+function check_selinux(){
+    hint "YELLOW" "Checking SELINUX status ... "
+    local status=$(getenforce)
+    if [ ${status} != 'Disabled' ]; then
+        sed -i 's/SELINUX=\(Permissive\|Enforcing\)/SELINUX=disabled/g' /etc/selinux/config
+        hint "RED" "SELINUX has been disabled, reboot for this change to take effect"
+        hint "GREEN" "DONE"
+        read -p "Reboot now? y/n " choice
+            if [ ${choice == 'y'} ]; then
+                reboot
+            fi
+    else
+        hint "YELLOW" "SELINUX is disabled"
+        hint "GREEN" "DONE"
+    fi
 }
 
 
@@ -225,3 +241,4 @@ mysql_setup
 install_wordpress
 make_nginx_config
 start_services
+check_selinux()
