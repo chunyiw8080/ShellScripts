@@ -10,7 +10,7 @@
 # * 
 # ************************************************************************** # 
 
-services=(mariadb php-fpm nginx)
+services=(php-fpm nginx)
 
 email="973321662@qq.com"
 smtp_server="smtp.qq.com:465"

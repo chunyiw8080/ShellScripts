@@ -10,7 +10,7 @@
 # * 
 # ************************************************************************** # 
 
-services_list=(mariadb php-fpm nginx) #A list used to store services that need to get started or restarted
+services_list=(php-fpm nginx) #A list used to store services that need to get started or restarted
 declare -A result #A map used to store the result of start or restart operations
 
 email="973321662@qq.com"

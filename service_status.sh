@@ -10,7 +10,7 @@
 # *
 # ************************************************************************** #
 
-service_list=(nginx php-fpm mariadb)
+service_list=(nginx php-fpm)
 
 function check_status(){
 	for (( i=0; i<${#service_list[@]}; i++ ))
