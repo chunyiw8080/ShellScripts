@@ -3,9 +3,9 @@
 rm -rf  /root/.certs
 find / -type f -name "*mail.rc*" | xargs -i rm -f {}
 
-email="973321662@qq.com"
+email=""
 smtp_server="smtp.qq.com:465"
-passwd="ysdswkyywbosbbdb"
+passwd=""
 cert="qq.crt"
 touch /etc/mail.rc
 
