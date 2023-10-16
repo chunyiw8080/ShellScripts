@@ -12,10 +12,10 @@
 
 services=(php-fpm nginx)
 
-email="973321662@qq.com"
+email="*****"
 smtp_server="smtp.qq.com:465"
-passwd="ysdswkyywbosbbdb"
-cert="qq.crt"
+passwd="*****"
+cert="***"
 
 function check_status(){
 	local status=$(systemctl status $1 | grep Active | awk '{print $2}')
